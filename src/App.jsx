@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ChartPanel from "./components/ChartPanel";
 import Map from "./Map";
 
 
