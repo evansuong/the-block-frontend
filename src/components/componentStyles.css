@@ -13,9 +13,52 @@ h1 {
 
 
 #block-list li {
-  display: inline-block;
+  font-family: 'Nunito Sans' sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-color: #FFFFFFDD;
-  width: 90%;
   margin: 5px;
+  padding: 10px;
   color: #000;
+  border-radius: 10px;
 }
+
+#block-list li * {
+  font-family: sans-serif;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+#block-list li div {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+#block-list li div * {
+  margin: 5px;
+}
+
+#block-list li h2 {
+  font-size: 20px;
+}
+
+
+#block-list li p {
+  font-size: 14px;
+}
+
+
+#block-list li img {
+  border-radius: 10px;
+}
+
+#stars {
+  width: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+
+ /* width */

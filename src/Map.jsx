@@ -37,7 +37,7 @@ function buildTestData(name, rating, text, image) {
 }
 
 const testData = [
-  buildTestData('papa johns', 3, 'i broke my back, thpinal', '../res/placeholder-image.jpg'),
+  buildTestData('papa johns', 3, 'i broke my back, thpinal', require('./res/placeholder-img.jpg')),
   buildTestData('pizza hut', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
   buildTestData('little ceasars', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
   buildTestData('cpk', 3, 'i broke my back, thpinal','./res/placeholder-image.jpg'),
@@ -48,8 +48,13 @@ const testData = [
 export default function Map() {
 
   const [sideBar, setSideBar] = useState();
+
+  function changeSideBar(newSidebar) {
+    console.log(newSidebar);
+  }
+
   useEffect(() => {
-    let side = <BlockList>{testData}</BlockList>
+    let side = <BlockList changeSideBar={changeSideBar}>{testData}</BlockList>
     setSideBar(side);
   }, []);
 

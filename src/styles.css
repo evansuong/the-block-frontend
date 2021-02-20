@@ -55,7 +55,7 @@ header h1 span:nth-child(2) {
   top: 0;
   left: 0;
   height: 100%;
-  width: 300px;
+  width: auto;
   background-color: #000000BB;
   color: white;
   z-index: 9999;
