@@ -1,0 +1,18 @@
+/* // NOTE: styles are included via {<link />} tag at {index.html}
+// @import "~leaflet/dist/leaflet.css";
+// @import "~react-leaflet-markercluster/dist/styles.min.css"; */
+
+* {
+  font-family: 'Montserrat', sans-serif;;
+}
+
+.leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated { will-change:auto !important; }
+
+
+#map-container {
+  position: relative;
+}
+
+.markercluster-map {
+  height: 90vh;
+}
