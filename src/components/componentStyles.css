@@ -1,0 +1,21 @@
+h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+#block-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#block-list li {
+  display: inline-block;
+  background-color: #FFFFFFDD;
+  width: 90%;
+  margin: 5px;
+  color: #000;
+}

@@ -1,62 +1,57 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { MapContainer, Circle, TileLayer, Marker, useMapEvent, Popup } from "react-leaflet";
+import { MapContainer, Circle, TileLayer, Marker, ZoomControl, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
+import BlockList from './components/BlockList';
 import "./styles.css";
 
 
-// const API = {
-//   fetchSessions: async function() {
-//     let sessions = await fetch("http://ec2-54-203-7-235.us-west-2.compute.amazonaws.com/ride/rides/fields=longitude,latitude")
-//     .then(response => response.json())
-//     .then(data => (data.data));
-//     sessions = sessions.map(session => (
-//       {
-//         position: [session.latitude, session.longitude],
-//         popup: session.rideId,
-//         id: session.rideId,
-//       }
-//     ));
-//     return sessions;
-//   },
-//   fetchBuoys: async function() {
-//     let response;
-//     fetch("http://ec2-54-203-7-235.us-west-2.compute.amazonaws.com/ride/rides/fields=longitude,latitude")
-//     .then(response => response.json())
-//     .then(data => {
-//       return data.data.map(session => (
-//         {
-//           position: [session.latitude, session.longitude],
-//           popup: session.rideId,
-//           id: session.rideId,
-//         }
-//       ));
-//     })
-//     .catch(error => console.log(error));
-//     return response;
-//   },
-// }
+const API = {
+  // query by place that we got from google
+  fetchReviews: async function() {
+    let reviews = await fetch("out backend")
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log("something terrible happened: error: ", error))
+    return reviews;
+  },
+  // fetch place from google api
+  fetchPlaces: async function() {
+    let response;
+    fetch("google api")
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.log("something terrible happened: error: ", error));
+    return response;
+  },
+}
+
+function buildTestData(name, rating, text, image) {
+  return {
+    id: name,
+    name: name,
+    rating: rating,
+    text: text,
+    imgSrc: image,
+    position: [23, 123],
+  }
+}
 
 const testData = [
-  {
-    id: 1,
-    position: [ 23, 107 ],
-  },
-  {
-    id: 2,
-    position: [ 24, 109 ],
-  },
-  {
-    id: 3,
-    position: [ 25, 103 ],
-  },
-  {
-    id: 4,
-    position: [ 26, 105 ],
-  }
+  buildTestData('papa johns', 3, 'i broke my back, thpinal', '../res/placeholder-image.jpg'),
+  buildTestData('pizza hut', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
+  buildTestData('little ceasars', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
+  buildTestData('cpk', 3, 'i broke my back, thpinal','./res/placeholder-image.jpg'),
+  buildTestData('dominos', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg')
 ]
 
 
 export default function Map() {
+
+  const [sideBar, setSideBar] = useState();
+  useEffect(() => {
+    let side = <BlockList>{testData}</BlockList>
+    setSideBar(side);
+  }, []);
 
 
   // TODO: ADD IN HOVER FUNCTIONALITY TO PULL UP SESSION INFO PANELS
@@ -68,7 +63,9 @@ export default function Map() {
         center={[0,0]}
         zoom={4}
         worldCopyJump={true}
+        zoomControl={false}
       >
+        <ZoomControl position="bottomright" />
         <TileLayer
           url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1Ijoic21hcnRmaW4tbWFwcyIsImEiOiJja2w0cG45Mm4wcWJvMm5wZWRtd3dsbG5jIn0.5W4X8d9QNECWLq2tMQp49w"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -83,6 +80,9 @@ export default function Map() {
           ))}
         </MarkerClusterGroup>
       </MapContainer>
+      <div id="sidebar-container">
+        { sideBar }
+      </div>
     </div>
     
   )

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Map from "./Map";
+import './styles.css'
 
 
 
@@ -7,13 +8,13 @@ import Map from "./Map";
 export default function App() {
 
   // const [mapView, setMapView] = useState(true);
-  const [selectedRide, setSelectedRide] = useState(null);
-  const chartPanel = selectedRide ? <ChartPanel/> : '';
   
 
   return (
-    <div>
-      { chartPanel }
+    <div id="app-container">
+      <header>
+        <h1><span>The</span> <span>Block</span></h1>
+      </header>
       <Map/>
     </div>
   );

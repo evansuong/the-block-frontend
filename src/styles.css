@@ -2,17 +2,70 @@
 // @import "~leaflet/dist/leaflet.css";
 // @import "~react-leaflet-markercluster/dist/styles.min.css"; */
 
+:root {
+  --block-green: #32FC8F;
+  --block-light-green: #66FFAC;
+}
+
+
 * {
-  font-family: 'Montserrat', sans-serif;;
+  font-family: 'Concert One', sans-serif;;
 }
 
 .leaflet-fade-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-zoom-animated { will-change:auto !important; }
 
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+#app-container {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  height: 100vh;
+}
+
+
+header {
+  width: 100%;
+  background-color: #000000DD;
+  border-bottom: 4px solid var(--block-green);
+  color: white;
+  z-index: 99999;
+}
+
+header h1 {
+  font-size: 45px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin: 5px;
+}
+
+header h1 span:nth-child(1) {
+  color: var(--block-green);
+}
+
+header h1 span:nth-child(2) {
+  color: #FFF;
+}
+
+#sidebar-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 300px;
+  background-color: #000000BB;
+  color: white;
+  z-index: 9999;
+  overflow-y: scroll;
+}
 
 #map-container {
   position: relative;
 }
 
 .markercluster-map {
-  height: 90vh;
+  height: 100%;
 }
