@@ -68,17 +68,15 @@ const testReviewData = [
 export default function Map() {
 
   const [sideBar, setSideBar] = useState();
-  const [searchStack, setSearchStack] = useState([{ barType: 'city', listItem: {} }]);
+  const [searchStack, setSearchStack] = useState([{ barType: 'home', listItem: {} }]);
   
   useEffect(() => {
     let side = <BlockList itemType={'city'} changeSideBar={changeSideBar}>{testCities}</BlockList>
     setSideBar(side);
   }, []);
 
-  function changeSideBar(barType, clickedItem) {
-    console.log('clicked item: ', clickedItem);
-    console.log('bar type: ', barType);
-
+  function changeSideBar(barType, clickedItem, fromGoBack) {
+   
     // make api calls to get new test data inside each switch statement
     // API READ 
     const lastbar = {
@@ -129,16 +127,24 @@ export default function Map() {
     }
 
     let newSearchStack = searchStack;
-    newSearchStack.push({ barType: lastbar[barType], listItem: clickedItem });
+    console.log(fromGoBack)
+    if (fromGoBack) {
+      console.log('not pushing')
+    } else {
+    console.log("pushing: ", clickedItem, barType);
+      newSearchStack.push({ barType: barType, listItem: clickedItem });
+    }
     setSearchStack(newSearchStack);
     setSideBar(sideBar);
   }
 
   function goBack() {
     let newSearchStack = searchStack;
-    let lastItem = newSearchStack.pop();
+    newSearchStack.pop();
+    let lastItem = newSearchStack[newSearchStack.length - 1];
+    console.log("popping: ", lastItem);
     setSearchStack(newSearchStack);
-    changeSideBar(lastItem.barType, lastItem.listItem);
+    changeSideBar(lastItem.barType, lastItem.listItem, true);
   }
 
   // TODO: ADD IN HOVER FUNCTIONALITY TO PULL UP SESSION INFO PANELS
