@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./componentStyles.css";
 import { ListItem, HeaderItem } from './ListItem'
 
 export default function BlockList(props) {
 
+  const [search, setSearch] = useState('');
+  
+
   // onclick we must find the individual place and dispaly that panel
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      
       { props.itemType !== 'city' && <div id="back-btn" onClick={props.goBack}>back</div> }
       { props.headerItem && 
         <HeaderItem headerItem={props.headerItem} itemType={props.itemType} onClick={props.changeSideBar}/>

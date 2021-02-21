@@ -1,34 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import Map from "./Map";
 import './styles.css'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from "./components/Login";
+import UserContextProvider from "./contexts/userContext.jsx";
 
 
 
 // Top Level window 
 export default function App() {
-
-  // const [mapView, setMapView] = useState(true);
   
 
   return (
     <div>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Login/>
-          </Route>
-          <Route path="/home">
-            <div id="app-container">
-              <header>
-                <h1><span>The</span> <span>Block</span></h1>
-              </header>
-              <Map/>
-            </div>
-          </Route>
-        </Switch>
-      </Router>
+      <UserContextProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Login/>
+            </Route>
+            <Route path="/home">
+              <div id="app-container">
+                <header>
+                  <h1><span>The</span> <span>Block</span></h1>
+                </header>
+                <Map/>
+              </div>
+            </Route>
+          </Switch>
+        </Router>
+      </UserContextProvider>
+     
     </div>
   );
 }

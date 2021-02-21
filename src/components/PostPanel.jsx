@@ -35,6 +35,7 @@ export default function PostPanel({ place, changeSideBar, goBack }) {
     };
     console.log(reviewForm);
     // API POST HERE
+    API.postReview(reviewForm);
 
     changeSideBar('place', place);
   }
