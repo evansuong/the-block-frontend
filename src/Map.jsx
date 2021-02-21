@@ -39,6 +39,14 @@ function buildTestData(name, rating, text, image) {
   }
 }
 
+const testCities = [
+  buildTestData('san diego', 3, 'i broke my back, thpinal', require('./res/placeholder-img.jpg')),
+  buildTestData('los angeles', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
+  buildTestData('san francisco', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
+  buildTestData('bakersfield', 3, 'i broke my back, thpinal','./res/placeholder-image.jpg'),
+  buildTestData('la jolla', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg')
+]
+
 const testPlaceData = [
   buildTestData('papa johns', 3, 'i broke my back, thpinal', require('./res/placeholder-img.jpg')),
   buildTestData('pizza hut', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
@@ -60,10 +68,10 @@ const testReviewData = [
 export default function Map() {
 
   const [sideBar, setSideBar] = useState();
-  const [searchStack, setSearchStack] = useState([]);
+  const [searchStack, setSearchStack] = useState([{ barType: 'city', listItem: {} }]);
   
   useEffect(() => {
-    let side = <BlockList itemType={'place'} changeSideBar={changeSideBar}>{testPlaceData}</BlockList>
+    let side = <BlockList itemType={'city'} changeSideBar={changeSideBar}>{testCities}</BlockList>
     setSideBar(side);
   }, []);
 
@@ -74,6 +82,7 @@ export default function Map() {
     // make api calls to get new test data inside each switch statement
     // API READ 
     const lastbar = {
+      city: 'home',
       place: 'city',
       review: 'place',
       post: 'place',
@@ -81,10 +90,18 @@ export default function Map() {
 
     let sideBar; 
     switch(barType) {
+      case 'home':
+        sideBar =  
+          <BlockList 
+            goBack={() => {}}
+            itemType="city"
+            changeSideBar={changeSideBar}>{testCities}</BlockList>;
+        break;
       case 'city': 
         sideBar = 
           <BlockList 
             goBack={goBack}
+            headerItem={clickedItem}
             itemType="place"
             changeSideBar={changeSideBar}>{testPlaceData}</BlockList>;
         break;

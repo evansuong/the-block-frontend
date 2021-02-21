@@ -16,7 +16,7 @@ h1 {
 }
 
 #back-btn:hover {
-  background-color: #000000AA;
+  background-color: #000000DD;
 }
 
 #block-list {
@@ -29,6 +29,7 @@ h1 {
   overflow-y: scroll;
   height: 100%;
   position: relative;
+  box-shadow: 0 0 5px 0 #000
 }
 
 
@@ -51,8 +52,9 @@ h1 {
   flex-direction: row;
   align-items: flex-end;
   color: #FFF;
-  background: linear-gradient(to top right, #00000044, #00000000);
   height: 40vh;
+  box-shadow: 0 -1px 5px 0 #000;
+  z-index: 999;
 }
 
 
@@ -66,7 +68,9 @@ h1 {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  margin: 5px;
+  padding: 10px;
+  width: 100%;
+  background-color: #0006;
 }
 
 #block-list-header-info * {
@@ -117,11 +121,18 @@ h1 {
   display: flex;
   align-items: center;
   background-color: #FFFFFFDD;
-  margin: 5px;
+  margin: 7px;
   padding: 0 10px;
   width: 90%;
   color: #000;
   border-radius: 10px;
+  transition-duration: .3s;
+  box-shadow: 0 10px 10px -3px #000;
+}
+
+#block-list li:hover {
+  transform: translateY(3px);
+  box-shadow: 0 2px 7px -3px #000;
 }
 
 #block-list li * {
@@ -173,7 +184,7 @@ h1 {
 #post-panel {
   height: 100%;
   color: #000;
-  background-color: #FFFFFFDD;
+  background-color: #FFF;
   padding: 30px;
   position: relative;
 }
@@ -200,6 +211,7 @@ h1 {
 
 #star-rating label {
   margin: 10px;
+  background-color: #FFF;
 }
 
 #post-panel textarea {
@@ -208,6 +220,20 @@ h1 {
   width: 90%;
   padding: 20px;
   border: none;
+  background-color: #FFF;
+  color: #000;
+  border-radius: 10px;
+  border: 3px solid #DDD;
+  transition-duration: .3s;
+}
+
+
+#post-panel textarea:hover {
+  border: 3px solid var(--block-green);
+}
+
+#post-panel textarea:active {
+  border: 3px solid var(--block-green);
 }
 
 #post-panel button {

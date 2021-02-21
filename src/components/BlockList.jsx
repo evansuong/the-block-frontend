@@ -8,11 +8,10 @@ export default function BlockList(props) {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      { props.listItem !== 'city' && <div id="back-btn" onClick={props.goBack}>back</div> }
+      { props.itemType !== 'city' && <div id="back-btn" onClick={props.goBack}>back</div> }
       { props.headerItem && 
-        <HeaderItem headerItem={props.headerItem} onClick={props.changeSideBar}/>
+        <HeaderItem headerItem={props.headerItem} itemType={props.itemType} onClick={props.changeSideBar}/>
       }
-
       <ul id="block-list">
         {props.children.map(listItem => {
           return (

@@ -15,8 +15,6 @@ export default function App() {
   return (
     <div>
       <Router>
-        <Link to="/">login</Link>
-        <Link to="/home">home</Link>
         <Switch>
           <Route exact path="/">
             <Login/>

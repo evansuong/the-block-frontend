@@ -21,7 +21,7 @@ export function ListItem({ itemType, listItem, onClick }) {
 }
 
 
-export function HeaderItem({ onClick, headerItem }) {
+export function HeaderItem({ onClick, headerItem, itemType }) {
 
   return (
 
@@ -32,7 +32,8 @@ export function HeaderItem({ onClick, headerItem }) {
         <p>{ headerItem.text }</p>
         {/* todo make this scalable */}
         <Stars id="stars" fill="black"/>
-        <div id="review-btn" onClick={() => onClick('post', headerItem)}>LEAVE A REVIEW</div> 
+        { itemType === 'review' && <div id="review-btn" onClick={() => onClick('post', headerItem)}>LEAVE A REVIEW</div>  
+        }
       </div>
     </div>
   )
