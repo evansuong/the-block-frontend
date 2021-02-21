@@ -18,18 +18,18 @@ export default function App() {
         <Link to="/">login</Link>
         <Link to="/home">home</Link>
         <Switch>
-            <Route exact path="/">
-              <Login/>
-            </Route>
-            <Route path="/home">
-              <div id="app-container">
-                <header>
-                  <h1><span>The</span> <span>Block</span></h1>
-                </header>
-                <Map/>
-              </div>
-            </Route>
-          </Switch>
+          <Route exact path="/">
+            <Login/>
+          </Route>
+          <Route path="/home">
+            <div id="app-container">
+              <header>
+                <h1><span>The</span> <span>Block</span></h1>
+              </header>
+              <Map/>
+            </div>
+          </Route>
+        </Switch>
       </Router>
     </div>
   );

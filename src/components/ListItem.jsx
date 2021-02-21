@@ -4,18 +4,36 @@ import {ReactComponent as Stars} from '../res/stars.svg';
 import img from '../res/placeholder-img.jpg'; // with import
 
 
-export default function ListItem({ listItem, onClick }) {
+export function ListItem({ itemType, listItem, onClick }) {
 
-  console.log(listItem.imgSrc)
   return (
-    <li onClick={onClick}>
+
+    <li onClick={() => onClick(itemType, listItem)}>
       <div>
         <h2>{ listItem.name }</h2>
         <p>{ listItem.text }</p>
         {/* todo make this scalable */}
         <Stars id="stars"/>
       </div>
-      <img width="100px" height="100px" src={img}/>
+      { listItem.imgSrc && <img width="70px" height="70px" src={img}/> }
     </li>
+  )
+}
+
+
+export function HeaderItem({ onClick, headerItem }) {
+
+  return (
+
+    <div id="block-list-header">
+      { headerItem.imgSrc && <img id="block-list-header-bkg" src={img}/> }
+      <div id="block-list-header-info">
+        <h2>{ headerItem.name }</h2>
+        <p>{ headerItem.text }</p>
+        {/* todo make this scalable */}
+        <Stars id="stars" fill="black"/>
+        <div id="review-btn" onClick={() => onClick('post', headerItem)}>LEAVE A REVIEW</div> 
+      </div>
+    </div>
   )
 }
