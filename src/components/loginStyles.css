@@ -8,9 +8,26 @@
   overflow: hidden;
 
 }
+
+textarea {
+  resize: none;
+  border-radius: 5px;
+  padding: 4px;
+  transition-duration: .2s;
+}
+
+
+section:hover textarea {
+  resize: none;
+  border-radius: 5px;
+  border-color: var(--block-lavendar);
+}
+
+
+
 #login {
   border-right: 5px solid #32FC8F;
-  padding: 50px;
+  padding: 0 50px;
   background-color: rgba(0, 0, 0, 0.8);
   position: static;
   height: 100vh;
@@ -35,7 +52,9 @@
 .label {
   color: white;
   font-size: 20px;
+  transition-duration: .2s;
 }
+
 
 
 textarea {
@@ -43,6 +62,7 @@ textarea {
   vertical-align: text-bottom;
   background-color: black;
   border-color: #32FC8F;
+  border-width: 3px;
   font-family: 'Nunito Sans', sans-serif;
   height:20px;
   width: 240px;
@@ -60,16 +80,22 @@ section {
 
 .go {
   color: white;
-  font-size: 40px;
+  font-size: 30px;
   font-variant: small-caps;
   background-color: #32FC8F;
   position: relative;
   left: 170px;
   border: 0;
-  height: 45px;
+  border-radius: 10px;
+  height: 55px;
   width: 70px;
   margin: 5px;
-  vertical-align: middle;
+  transition-duration: .2s;
+}
+
+
+.go:hover {
+  background-color: var(--block-lavendar);
 }
 
 .loginB {
@@ -95,6 +121,14 @@ section {
   left: 225px;
   bottom: 0px;
   background-color: #020202;
+}
+
+#login-button:hover {
+  background-color: var(--block-lavendar);
+}
+
+#signup-button:hover {
+  background-color: var(--block-lavendar);
 }
 
 button:focus {outline:0;}

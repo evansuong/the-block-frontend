@@ -4,19 +4,73 @@ h1 {
 }
 
 #back-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 10px;
+  margin: 20px;
   background-color: #00000055;
   border-radius: 10px;
   padding: 10px;
   z-index: 99999;
   transition-duration: .2s;
+  font-family: 'Concert One', sans-serif;
+  font-variant: small-caps;
 }
 
 #back-btn:hover {
   background-color: #000000DD;
+}
+
+#header-header {
+  width: 100%;
+  z-index: 99999;
+  background-color: var(--block-green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+#search-bar {
+  display: flex;
+  margin: 20px;
+  transition-duration: .2s;
+}
+
+#search-bar input {
+  height: 20px;
+  padding: 10px;
+  border-radius: 7px 0 0 7px;
+  outline: none;
+  border: none;
+  transition-duration: .2s;
+}
+
+#search-bar button {
+  outline: none;
+  background-color: #00000055;
+  color: #FFF;
+  border: none;
+  height: 40px;
+  font-family: 'Concert One', sans-serif;
+  font-size: 18px;
+  border-radius: 0 7px 7px 0;
+  font-variant: small-caps;
+  transition-duration: .2s;
+}
+
+#search-bar button:hover {
+  background-color: #000000DD;
+}
+
+#list-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+#block-list-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5px 0 #000;
 }
 
 #block-list {
@@ -26,15 +80,13 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
   height: 100%;
   position: relative;
-  box-shadow: 0 0 5px 0 #000
 }
 
 
  /* Hide scrollbar for Chrome, Safari and Opera */
- #block-list::-webkit-scrollbar {
+ #list-container::-webkit-scrollbar {
   display: none;
 }
 
@@ -49,12 +101,12 @@ h1 {
   /* background-color: var(--block-light-green); */
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-end;
   color: #FFF;
-  height: 40vh;
   box-shadow: 0 -1px 5px 0 #000;
   z-index: 999;
+  width: 100%;
 }
 
 
@@ -68,8 +120,8 @@ h1 {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 10px;
   width: 100%;
+  height: 40vh;
   background-color: #0006;
 }
 
@@ -95,6 +147,10 @@ h1 {
 #block-list-header picture {
   background-color: #FFFFFFDD;
   font-size: 10px;
+}
+
+#header-content {
+  margin: 20px;
 }
 
 #block-list-header * {

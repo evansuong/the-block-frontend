@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 //import ReactDOM from 'react-dom';
 import "./componentStyles.css";
 import "./loginStyles.css";
+import API from '../API.js';
 
 export default function Login() {
   const [isLogin, setLogin] = useState(true)
@@ -14,18 +15,22 @@ export default function Login() {
 
   function handleLogin () {
     if(isLogin) {
+      console.log('logging in')
       let userInfo = {
         username: username,
         password: password,
       } 
+      API.login(username, password);
     }
     else {
+      console.log('singing up')
       let userInfo = {
         username: username,
         password: password,
         cPassword: cPassword,
         city: city,
       }
+      API.signup(username, password, city);
     }
     console.log(username);
     console.log(password);

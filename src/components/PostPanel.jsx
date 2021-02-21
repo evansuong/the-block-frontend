@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import "./componentStyles.css";
 import {ReactComponent as StarEmpty} from '../res/star-empty.svg';
 import {ReactComponent as StarFilled} from '../res/star-filled.svg';
+import { UserContext } from '../contexts/userContext';
+import API from '../API.js';
 
 
 
@@ -10,7 +12,9 @@ export default function PostPanel({ place, changeSideBar, goBack }) {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [stars, setStars] = useState([false, false, false, false, false]);
-  console.log([place])
+  console.log([place]);
+
+  const { user } = useContext(UserContext);
 
   // keep array of booleans to represent the chcked state initialized all to false
   // on a star click, get its index in the array
@@ -35,7 +39,7 @@ export default function PostPanel({ place, changeSideBar, goBack }) {
     };
     console.log(reviewForm);
     // API POST HERE
-    API.postReview(reviewForm);
+    API.postReview(user.username, reviewForm);
 
     changeSideBar('place', place);
   }

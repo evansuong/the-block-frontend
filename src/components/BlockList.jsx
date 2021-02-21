@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
 import "./componentStyles.css";
-import { ListItem, HeaderItem } from './ListItem'
+import { ListItem, HeaderItem } from './ListItem';
 
 export default function BlockList(props) {
 
   const [search, setSearch] = useState('');
   
-
   // onclick we must find the individual place and dispaly that panel
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      
-      { props.itemType !== 'city' && <div id="back-btn" onClick={props.goBack}>back</div> }
+
+    <div id="list-container">
       { props.headerItem && 
-        <HeaderItem headerItem={props.headerItem} itemType={props.itemType} onClick={props.changeSideBar}/>
+        <HeaderItem places={props.children} headerItem={props.headerItem} photo_ref={props.photo_ref} goBack={props.goBack} search={props.search} itemType={props.itemType} onClick={props.changeSideBar}/>
       }
       <ul id="block-list">
-        {props.children.map(listItem => {
+        {props.children.map((listItem, index) => {
           return (
-            <ListItem key={listItem.name} onClick={props.changeSideBar} itemType={props.itemType} listItem={listItem}/>
+            <ListItem index={index} key={listItem.name} onClick={props.changeSideBar} itemType={props.itemType} listItem={listItem}/>
           )
         })}
       </ul>

@@ -5,33 +5,14 @@ import { setSyntheticLeadingComments, setTokenSourceMapRange } from 'typescript'
 import BlockList from './components/BlockList';
 import PostPanel from './components/PostPanel';
 import ReviewPanel from './components/ReviewPanel';
+import API from "./API";
 import "./styles.css";
 
-
-const API = {
-  // query by place that we got from google
-  fetchReviews: async function() {
-    let reviews = await fetch("out backend")
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log("something terrible happened: error: ", error))
-    return reviews;
-  },
-  // fetch place from google api
-  fetchPlaces: async function() {
-    let response;
-    fetch("google api")
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.log("something terrible happened: error: ", error));
-    return response;
-  },
-}
 
 function buildTestData(name, rating, text, image) {
   return {
     id: name,
-    name: name,
+    place_name: name,
     rating: rating,
     text: text,
     imgSrc: image,
@@ -40,15 +21,15 @@ function buildTestData(name, rating, text, image) {
 }
 
 const testCities = [
-  buildTestData('san diego', 3, 'i broke my back, thpinal', require('./res/placeholder-img.jpg')),
-  buildTestData('los angeles', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
-  buildTestData('san francisco', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
-  buildTestData('bakersfield', 3, 'i broke my back, thpinal','./res/placeholder-image.jpg'),
-  buildTestData('la jolla', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg')
+  buildTestData('san diego', 3, 'i broke my back, thpinal', '../res/san-diego.jpg'),
+  buildTestData('los angeles', 3, 'i broke my back, thpinal', '../res/los-angeles.jpg'),
+  buildTestData('san francisco', 3, 'i broke my back, thpinal', '../res/san-francisco.jpg'),
+  buildTestData('bakersfield', 3, 'i broke my back, thpinal', '../res/bakersfield.jpg'),
+  buildTestData('la jolla', 3, 'i broke my back, thpinal', '../res/placeholder-image.jpg')
 ]
 
 const testPlaceData = [
-  buildTestData('papa johns', 3, 'i broke my back, thpinal', require('./res/placeholder-img.jpg')),
+  buildTestData('papa johns', 3, 'i broke my back, thpinal', './res/placeholder-img.jpg'),
   buildTestData('pizza hut', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
   buildTestData('little ceasars', 3, 'i broke my back, thpinal', './res/placeholder-image.jpg'),
   buildTestData('cpk', 3, 'i broke my back, thpinal','./res/placeholder-image.jpg'),
@@ -57,11 +38,11 @@ const testPlaceData = [
 
 
 const testReviewData = [
-  buildTestData('@evan', 3, 'everybody meet mr. me too', false),
-  buildTestData('@alana', 3, 'everybody meet mr. me too', false),
-  buildTestData('@alex', 3, 'everybody meet mr. me too', false),
-  buildTestData('@tyus', 3, 'everybody meet mr. me too', false),
-  buildTestData('@yixuan', 3, 'everybody meet mr. me too', false)
+  buildTestData('@evan', 3, 'decent food, good price. I enjoy coming here for dinner', false),
+  buildTestData('@alana', 3, 'a fine establishment', false),
+  buildTestData('@alex', 3, 'solid staff, and friendly folk!', false),
+  buildTestData('@tyus', 3, 'easily one of the top spots in SD', false),
+  buildTestData('@yixuan', 3, 'great owners, I come here at least once a week', false)
 ]
 
 
@@ -69,16 +50,45 @@ export default function Map() {
 
   const [sideBar, setSideBar] = useState();
   const [searchStack, setSearchStack] = useState([{ barType: 'home', listItem: {} }]);
+  const [places, setPlaces] = useState();
   
   useEffect(() => {
-    let side = <BlockList itemType={'city'} changeSideBar={changeSideBar}>{testCities}</BlockList>
+    let side =  <BlockList 
+      goBack={() => {}}
+      itemType="city"
+      headerItem={{}}
+      search={search}
+      changeSideBar={changeSideBar}>{testCities}</BlockList>;
     setSideBar(side);
   }, []);
 
-  function changeSideBar(barType, clickedItem, fromGoBack) {
+  
+  function search(search, itemType, headerItem) {
+    console.log(search)
+    console.log(itemType)
+    let updated = itemType.filter(place => {
+      console.log(place)
+      console.log(place.place_name)
+      return place.place_name.includes(search)
+    });
+    console.log(updated);
+    let newSideBar = 
+    <BlockList 
+      goBack={goBack}
+      search={search}
+      headerItem={headerItem}
+      itemType="place"
+      changeSideBar={changeSideBar}>{updated}</BlockList>;
+    setSideBar(newSideBar)
+  }
+
+  async function changeSideBar(barType, clickedItem, fromGoBack) {
    
     // make api calls to get new test data inside each switch statement
     // API READ 
+    console.log(clickedItem);
+
+
     const lastbar = {
       city: 'home',
       place: 'city',
@@ -93,15 +103,22 @@ export default function Map() {
           <BlockList 
             goBack={() => {}}
             itemType="city"
+            headerItem={{}}
+            search={search}
             changeSideBar={changeSideBar}>{testCities}</BlockList>;
         break;
       case 'city': 
+        let places = await API.fetchPlaces(clickedItem.place_name);
+        console.log(';KASDJFKJSDLKF: ', places[0].photo_ref)
         sideBar = 
           <BlockList 
             goBack={goBack}
+            search={search}
             headerItem={clickedItem}
             itemType="place"
-            changeSideBar={changeSideBar}>{testPlaceData}</BlockList>;
+            changeSideBar={changeSideBar}>{places}</BlockList>;
+        console.log(places);
+        setPlaces(places);
         break;
       case 'place':
         // change type of list item to places
@@ -109,6 +126,7 @@ export default function Map() {
           <BlockList 
             itemType="review"
             headerItem={clickedItem}
+            search={search}
             goBack={goBack}
             changeSideBar={changeSideBar}>{testReviewData}</BlockList>;
         break;
@@ -127,7 +145,6 @@ export default function Map() {
     }
 
     let newSearchStack = searchStack;
-    console.log(fromGoBack)
     if (fromGoBack) {
       console.log('not pushing')
     } else {
@@ -153,7 +170,7 @@ export default function Map() {
     <div id="map-container">
       <MapContainer
         className="markercluster-map"
-        center={[0,0]}
+        center={places ? [places[0].latitude, places[0].longitude] : [0, 0]}
         zoom={4}
         worldCopyJump={true}
         zoomControl={false}
@@ -164,8 +181,8 @@ export default function Map() {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <MarkerClusterGroup zoomToBoundsOnClick={true}>
-          {testPlaceData && testPlaceData.map(place => (
-            <Circle key={place.id} center={place.position} radius={50} color="green">
+          {places && places.map(place => (
+            <Circle key={place.id} center={[ place.latitude, place.longitude ]} radius={50} color="green">
               <Popup key={place.id}>
                 <div>{place.id}</div>
               </Popup>
